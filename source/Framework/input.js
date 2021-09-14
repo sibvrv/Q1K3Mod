@@ -7,13 +7,17 @@
 
 // Movement, Action, Prev/Next, Jump
 let keymap = {
-  W: 1, p: 1, // Key[W] or ArrowU[p]
-  A: 2, e: 2, // Key[A] or ArrowL[e]ft
-  S: 3, o: 3, // Key[S] or ArrowD[o]wn
-  D: 4, i: 4, // Key[D] or ArrowR[i]ght
-  Q: 5,       // Key[Q]
-  E: 6,       // Key[E]
-  c: 9,       // KeySpa[c]e
+  W: 1,
+  p: 1, // Key[W] or ArrowU[p]
+  A: 2,
+  e: 2, // Key[A] or ArrowL[e]ft
+  S: 3,
+  o: 3, // Key[S] or ArrowD[o]wn
+  D: 4,
+  i: 4, // Key[D] or ArrowR[i]ght
+  Q: 5, // Key[Q]
+  E: 6, // Key[E]
+  c: 9, // KeySpa[c]e
 };
 let keys = [
   // Unused zeroth key, so we can test the keymap result for truthiness
@@ -21,8 +25,7 @@ let keys = [
 
   // WASD/Arrow Keys and prev next have to be set to zero, because we use
   // the value (0 or 1) to calculate the move direction or weapon switch
-  0, 0, 0, 0,
-  0, 0
+  0, 0, 0, 0, 0, 0,
 
   // Following Keys (action, jump) to not have to be set here
   // as they are just tested for truthiness
@@ -33,8 +36,8 @@ let key_left = 2;
 let key_right = 4;
 let key_prev = 5;
 let key_next = 6;
-let key_action = 7;  // ev.button = 0
-let key_jump = 9;  // ev.button = 2
+let key_action = 7; // ev.button = 0
+let key_jump = 9; // ev.button = 2
 let mouse_x = 0;
 let mouse_y = 0;
 let last_wheel_event = 0;
@@ -79,4 +82,3 @@ c.onmouseup = (ev) => {
   ev.preventDefault();
   keys[key_action + ev.button] = 0;
 };
-

@@ -24,6 +24,6 @@ class EntityBarrel extends Entity {
       this._spawn_particles(2, 600, m, 21, 1);
     }
     game_spawn(EntityLight, vec3_add(this.p, vec3(0, 16, 0)), 250, 0x08f)._die_at = game_time + 0.2;
-    game_entities_enemies = game_entities_enemies.filter(e => e != this);
+    game_entities_enemies = game_entities_enemies.filter((e) => e != this);
   }
 }

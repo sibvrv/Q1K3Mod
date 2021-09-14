@@ -29,8 +29,7 @@ class Entity {
     this._init(p1, p2);
   }
 
-  _init(p1, p2) {
-  }
+  _init(p1, p2) {}
 
   _update() {
     if (this._model) {
@@ -49,20 +48,10 @@ class Entity {
 
     // Integrate acceleration & friction into velocity
     let ff = Math.min(this.f * game_tick, 1);
-    this.v = vec3_add(
-      this.v, vec3_sub(
-        vec3_mulf(this.a, game_tick),
-        vec3_mul(this.v, vec3(ff, 0, ff))
-      )
-    );
-
+    this.v = vec3_add(this.v, vec3_sub(vec3_mulf(this.a, game_tick), vec3_mul(this.v, vec3(ff, 0, ff))));
 
     // Set up the _check_entities array for entity collisions
-    this._check_entities = [
-      [],
-      game_entities_friendly,
-      game_entities_enemies
-    ][this._check_against];
+    this._check_entities = [[], game_entities_friendly, game_entities_enemies][this._check_against];
 
     // Divide the physics integration into 16 unit steps; otherwise fast
     // projectiles may just move through walls.
@@ -80,12 +69,8 @@ class Entity {
 
       // Collision with walls, horizonal
       if (this._collides(vec3(this.p.x, lp.y, lp.z))) {
-
         // Can we step up?
-        if (
-          !this._step_height || !this._on_ground || this.v.y > 0 ||
-          this._collides(vec3(this.p.x, lp.y + this._step_height, lp.z))
-        ) {
+        if (!this._step_height || !this._on_ground || this.v.y > 0 || this._collides(vec3(this.p.x, lp.y + this._step_height, lp.z))) {
           this._did_collide(0);
           this.p.x = lp.x;
           this.v.x = -this.v.x * this._bounciness;
@@ -99,12 +84,8 @@ class Entity {
 
       // Collision with walls, vertical
       if (this._collides(vec3(this.p.x, lp.y, this.p.z))) {
-
         // Can we step up?
-        if (
-          !this._step_height || !this._on_ground || this.v.y > 0 ||
-          this._collides(vec3(this.p.x, lp.y + this._step_height, this.p.z))
-        ) {
+        if (!this._step_height || !this._on_ground || this.v.y > 0 || this._collides(vec3(this.p.x, lp.y + this._step_height, this.p.z))) {
           this._did_collide(2);
           this.p.z = lp.z;
           this.v.z = -this.v.z * this._bounciness;
@@ -131,7 +112,6 @@ class Entity {
 
       this._step_height = original_step_height;
     }
-
   }
 
   _collides(p) {
@@ -150,11 +130,7 @@ class Entity {
 
     // Check if there's no block beneath this point. We want the AI to keep
     // off of ledges.
-    if (
-      this._on_ground && this._keep_off_ledges &&
-      !map_block_at(p.x >> 5, (p.y - this.s.y - 8) >> 4, p.z >> 5) &&
-      !map_block_at(p.x >> 5, (p.y - this.s.y - 24) >> 4, p.z >> 5)
-    ) {
+    if (this._on_ground && this._keep_off_ledges && !map_block_at(p.x >> 5, (p.y - this.s.y - 8) >> 4, p.z >> 5) && !map_block_at(p.x >> 5, (p.y - this.s.y - 24) >> 4, p.z >> 5)) {
       return true;
     }
 
@@ -162,17 +138,15 @@ class Entity {
     return map_block_at_box(vec3_sub(p, this.s), vec3_add(p, this.s));
   }
 
-  _did_collide(axis) {
-  }
+  _did_collide(axis) {}
 
-  _did_collide_with_entity(other) {
-  }
+  _did_collide_with_entity(other) {}
 
   _draw_model() {
     this._anim_time += game_tick;
 
     // Calculate which frames to use and how to mix them
-    let f = (this._anim_time / this._anim[0]);
+    let f = this._anim_time / this._anim[0];
     let mix = f - (f | 0);
     let frame_cur = this._anim[1][(f | 0) % this._anim[1].length];
     let frame_next = this._anim[1][((f + 1) | 0) % this._anim[1].length];
@@ -182,11 +156,7 @@ class Entity {
       [frame_next, frame_cur] = [frame_cur, frame_next];
       mix = 1 - mix;
     }
-    r_draw(
-      this.p, this._yaw, this._pitch, this._texture,
-      this._model.f[frame_cur], this._model.f[frame_next], mix,
-      this._model.nv
-    );
+    r_draw(this.p, this._yaw, this._pitch, this._texture, this._model.f[frame_cur], this._model.f[frame_next], mix, this._model.nv);
   }
 
   _spawn_particles(amount, speed = 1, model, texture, lifetime) {
@@ -195,11 +165,7 @@ class Entity {
       particle._model = model;
       particle._texture = texture;
       particle._die_at = game_time + lifetime + Math.random() * lifetime * 0.2;
-      particle.v = vec3(
-        (Math.random() - 0.5) * speed,
-        Math.random() * speed,
-        (Math.random() - 0.5) * speed
-      );
+      particle.v = vec3((Math.random() - 0.5) * speed, Math.random() * speed, (Math.random() - 0.5) * speed);
     }
   }
 

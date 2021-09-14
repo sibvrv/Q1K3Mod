@@ -23,25 +23,19 @@ SOFTWARE.
 
 // Compress with:
 // uglifyjs ttt.js --compress --screw-ie8 --mangle toplevel -o ttt.min.js
-let
-  ttt = (td, only_this_index = -1, stack_depth = 0) => {
-    return td.filter((d, i) => only_this_index < 0 || i == only_this_index).map(d => {
+let ttt = (td, only_this_index = -1, stack_depth = 0) => {
+  return td
+    .filter((d, i) => only_this_index < 0 || i == only_this_index)
+    .map((d) => {
       let i = 0,
         e = document.createElement('canvas'),
         c = e.getContext('2d'),
-        rgba_from_2byte = (c) =>
-          'rgba(' + [
-            ((c >> 12) & 15) * 17,
-            ((c >> 8) & 15) * 17,
-            ((c >> 4) & 15) * 17,
-            (c & 15) / 15
-          ].join() + ')',
+        rgba_from_2byte = (c) => 'rgba(' + [((c >> 12) & 15) * 17, ((c >> 8) & 15) * 17, ((c >> 4) & 15) * 17, (c & 15) / 15].join() + ')',
         fill_rect = (x, y, w, h, ...colors) =>
           colors.map((color, j) => {
             c.fillStyle = rgba_from_2byte(color);
             c.fillRect(x + [-1, 1, 0][j], y + [-1, 1, 0][j], w, h);
-          })
-      ;
+          });
       // Set up canvas width and height
       e.width = d[i++];
       e.height = d[i++];
@@ -54,7 +48,7 @@ let
         let f = [
           // 0 - rectangle: x, y, width, height, top, bottom, fill
           (x, y, width, height, top, bottom, fill) => {
-            fill_rect(x, y, width, height, top, bottom, fill)
+            fill_rect(x, y, width, height, top, bottom, fill);
           },
 
           // 1 - rectangle_multiple: start_x, start_y, width, height,
@@ -74,10 +68,7 @@ let
                 // Take the color value (first 3 nibbles) and
                 // randomize the alpha value (last nibble)
                 // between 0 and the input alpha.
-                fill_rect(
-                  x, y, size, size, 0, 0,
-                  (color & 0xfff0) + Math.random() * (color & 15)
-                );
+                fill_rect(x, y, size, size, 0, 0, (color & 0xfff0) + Math.random() * (color & 15));
               }
             }
           },
@@ -94,18 +85,12 @@ let
           // loop by accident
           (texture_index, x, y, w, h, alpha) => {
             c.globalAlpha = alpha / 15;
-            (
-              texture_index < td.length && stack_depth < 16 &&
-              c.drawImage(
-                ttt(td, texture_index, stack_depth + 1)[0],
-                x, y, w, h
-              )
-            );
+            texture_index < td.length && stack_depth < 16 && c.drawImage(ttt(td, texture_index, stack_depth + 1)[0], x, y, w, h);
             c.globalAlpha = 1;
-          }
+          },
         ][d[i++]];
-        f(...d.slice(i, i += f.length));
+        f(...d.slice(i, (i += f.length)));
       }
       return e;
     });
-  };
+};

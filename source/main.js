@@ -33,7 +33,7 @@ let model_door;
 
 // Projectiles
 let model_grenade;
-let model_plasma;  // aka. nail
+let model_plasma; // aka. nail
 
 // Sounds
 let sfx_enemy_hit;
@@ -143,36 +143,22 @@ let game_load = async () => {
       sfx_grenade_bounce = audio_create_sound(168, [7, 0, 124, 0, 128, 0, 8, 5, 127, 0, 128, 0, 125, 88, 0, 2193, 125, 1, 1238, 240, 1, 91, 3, 47, 0, 0, 0, 0, 0]);
       sfx_grenade_explode = audio_create_sound(135, [8, 0, 0, 1, 195, 1, 6, 0, 0, 1, 127, 1, 255, 197, 1234, 21759, 232, 2, 1052, 255, 4, 73, 3, 25, 1, 0, 10, 227, 1]);
 
-
       audio_play(audio_create_song(...music_data), 1, 1);
       game_init(0);
       run_frame = game_run;
     }, 100); // Not sure why such a long delay is needed. Ideally we would
-             // want to use requestAnimationFrame, but the previous DOM
-             // update (...) never makes it to the screen then ;/
+    // want to use requestAnimationFrame, but the previous DOM
+    // update (...) never makes it to the screen then ;/
   };
 };
 
 let run_frame = (time_now) => {
   r_prepare_frame();
 
-  r_draw(
-    vec3(0, 0, 0), 0, 0, 1,
-    model_q.f[0], model_q.f[0], 0,
-    model_q.nv
-  );
-  r_push_light(
-    vec3(Math.sin(time_now * 0.00033) * 200, 100, -100),
-    10, 255, 192, 32
-  );
-  r_push_light(
-    vec3_rotate_y(vec3(0, 0, 100), time_now * 0.00063),
-    10, 32, 64, 255
-  );
-  r_push_light(
-    vec3_rotate_y(vec3(100, 0, 0), time_now * 0.00053),
-    10, 196, 128, 255
-  );
+  r_draw(vec3(0, 0, 0), 0, 0, 1, model_q.f[0], model_q.f[0], 0, model_q.nv);
+  r_push_light(vec3(Math.sin(time_now * 0.00033) * 200, 100, -100), 10, 255, 192, 32);
+  r_push_light(vec3_rotate_y(vec3(0, 0, 100), time_now * 0.00063), 10, 32, 64, 255);
+  r_push_light(vec3_rotate_y(vec3(100, 0, 0), time_now * 0.00053), 10, 196, 128, 255);
 
   r_end_frame();
   requestAnimationFrame(run_frame);

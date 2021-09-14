@@ -12,7 +12,7 @@ class EntityPickupNailgun extends EntityPickup {
 
   _pickup() {
     audio_play(sfx_pickup);
-    game_entity_player._weapon_index = game_entity_player._weapons.push(new WeaponNailgun) - 1;
+    game_entity_player._weapon_index = game_entity_player._weapons.push(new WeaponNailgun()) - 1;
     this._kill();
   }
 }

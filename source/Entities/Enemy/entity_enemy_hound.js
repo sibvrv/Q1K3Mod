@@ -14,10 +14,10 @@ class EntityEnemyHound extends EntityEnemy {
     this._speed = 256;
 
     this._ANIMS = [
-      [1, [0]],               // 0: Idle
-      [0.15, [0, 1]],          // 2: Run
-      [0.15, [0, 1]],          // 2: Run
-      [1, [0]],               // 3: Attack prepare
+      [1, [0]], // 0: Idle
+      [0.15, [0, 1]], // 2: Run
+      [0.15, [0, 1]], // 2: Run
+      [1, [0]], // 3: Attack prepare
       [0.1, [0, 1, 1, 1, 0, 0, 0]], // 4: Attack
     ];
 
@@ -47,6 +47,6 @@ class EntityEnemyHound extends EntityEnemy {
     // Ignore ledges while attacking
     this._keep_off_ledges = 0;
     clearTimeout(this._reset_ledges);
-    this._reset_ledges = setTimeout(() => this._keep_off_ledges = 1, 1000);
+    this._reset_ledges = setTimeout(() => (this._keep_off_ledges = 1), 1000);
   }
 }

@@ -1,11 +1,10 @@
 class EntityEnemy extends Entity {
   _init(patrol_dir) {
-
     // Animations
     this._ANIMS = [
-      [1, [0]],          // 0: Idle
-      [0.40, [1, 2, 3, 4]], // 1: Walk
-      [0.20, [1, 2, 3, 4]], // 2: Run
+      [1, [0]], // 0: Idle
+      [0.4, [1, 2, 3, 4]], // 1: Walk
+      [0.2, [1, 2, 3, 4]], // 2: Run
       [0.25, [0, 5, 5, 5]], // 3: Attack prepare
       [0.25, [5, 0, 0, 0]], // 4: Attack
     ];
@@ -53,13 +52,12 @@ class EntityEnemy extends Entity {
     this._state = state;
     this._anim = this._ANIMS[state[0]];
     this._anim_time = 0;
-    this._state_update_at = game_time + state[2] + state[2] / 4 * Math.random();
+    this._state_update_at = game_time + state[2] + (state[2] / 4) * Math.random();
   }
 
   _update() {
     // Is it time for a state update?
     if (this._state_update_at < game_time) {
-
       // Choose a new turning bias for FOLLOW/EVADE when we hit a wall
       this._turn_bias = Math.random() > 0.5 ? 0.5 : -0.5;
 
@@ -72,7 +70,6 @@ class EntityEnemy extends Entity {
 
       // Try to minimize distance to the player
       if (this._state == this._STATE_FOLLOW) {
-
         // Do we have a line of sight?
         if (!map_trace(this.p, game_entity_player.p)) {
           this._target_yaw = angle_to_player;
@@ -80,12 +77,8 @@ class EntityEnemy extends Entity {
 
         // Are we close enough to attack?
         if (distance_to_player < this._attack_distance) {
-
           // Are we too close? Evade!
-          if (
-            distance_to_player < this._evade_distance ||
-            Math.random() > this._attack_chance
-          ) {
+          if (distance_to_player < this._evade_distance || Math.random() > this._attack_chance) {
             this._set_state(this._STATE_EVADE);
             this._target_yaw += Math.PI / 2 + Math.random() * Math.PI;
           }
@@ -105,10 +98,7 @@ class EntityEnemy extends Entity {
       // Wake up from patroling or idlyng if we have a line of sight
       // and are near enough
       if (this._state == this._STATE_PATROL || this._state == this._STATE_IDLE) {
-        if (
-          distance_to_player < 700 &&
-          !map_trace(this.p, game_entity_player.p)
-        ) {
+        if (distance_to_player < 700 && !map_trace(this.p, game_entity_player.p)) {
           this._set_state(this._STATE_ATTACK_AIM);
         }
       }
@@ -133,7 +123,6 @@ class EntityEnemy extends Entity {
     // Rotate to desired angle
     this._yaw += anglemod(this._target_yaw - this._yaw) * 0.1;
 
-
     // Move along the yaw direction with the current speed (which might be 0)
     if (this._on_ground) {
       this.v = vec3_rotate_y(vec3(0, this.v.y, this._state[1] * this._speed), this._target_yaw);
@@ -148,14 +137,7 @@ class EntityEnemy extends Entity {
     projectile._check_against = ENTITY_GROUP_PLAYER;
     projectile._yaw = this._yaw + Math.PI / 2;
 
-    projectile.v = vec3_rotate_yaw_pitch(
-      vec3(0, 0, speed),
-      this._yaw + yaw_offset,
-      Math.atan2(
-        this.p.y - game_entity_player.p.y,
-        vec3_dist(this.p, game_entity_player.p)
-      ) + pitch_offset
-    );
+    projectile.v = vec3_rotate_yaw_pitch(vec3(0, 0, speed), this._yaw + yaw_offset, Math.atan2(this.p.y - game_entity_player.p.y, vec3_dist(this.p, game_entity_player.p)) + pitch_offset);
     return projectile;
   }
 
@@ -178,7 +160,7 @@ class EntityEnemy extends Entity {
       this._spawn_particles(2, 300, m, 18, 1);
     }
     this._play_sound(sfx_enemy_gib);
-    game_entities_enemies = game_entities_enemies.filter(e => e != this);
+    game_entities_enemies = game_entities_enemies.filter((e) => e != this);
   }
 
   _did_collide(axis) {

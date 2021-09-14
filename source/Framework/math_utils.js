@@ -1,5 +1,5 @@
-let clamp = (v, min, max) => v < min ? min : (v > max ? max : v);
-let scale = (v, in_min, in_max, out_min, out_max) => out_min + ((out_max) - out_min) * (((v) - in_min) / ((in_max) - in_min));
+let clamp = (v, min, max) => (v < min ? min : v > max ? max : v);
+let scale = (v, in_min, in_max, out_min, out_max) => out_min + (out_max - out_min) * ((v - in_min) / (in_max - in_min));
 let anglemod = (r) => Math.atan2(Math.sin(r), Math.cos(r));
 let vec3 = (x = 0, y = 0, z = 0) => ({x, y, z});
 let vec3_rotate_yaw_pitch = (p, yaw, pitch) => vec3_rotate_y(vec3_rotate_x(p, pitch), yaw);
@@ -9,7 +9,7 @@ let vec3_2d_angle = (a, b) => Math.atan2(b.x - a.x, b.z - a.z);
 let vec3_clone = (a) => vec3(a.x, a.y, a.z);
 let vec3_length = (a) => Math.hypot(a.x, a.y, a.z);
 let vec3_dist = (a, b) => vec3_length(vec3_sub(a, b));
-let vec3_dot = (a, b) => (a.x * b.x + a.y * b.y + a.z * b.z);
+let vec3_dot = (a, b) => a.x * b.x + a.y * b.y + a.z * b.z;
 let vec3_add = (a, b) => vec3(a.x + b.x, a.y + b.y, a.z + b.z);
 let vec3_sub = (a, b) => vec3(a.x - b.x, a.y - b.y, a.z - b.z);
 let vec3_mul = (a, b) => vec3(a.x * b.x, a.y * b.y, a.z * b.z);

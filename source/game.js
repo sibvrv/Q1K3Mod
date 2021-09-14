@@ -25,7 +25,7 @@ let game_next_level = () => {
 };
 
 let game_spawn = (type, pos, p1, p2) => {
-  let entity = new (type)(pos, p1, p2)
+  let entity = new type(pos, p1, p2);
   game_entities.push(entity);
   return entity;
 };
@@ -34,7 +34,7 @@ let game_show_message = (text) => {
   msg.textContent = text;
   msg.style.display = 'block';
   clearTimeout(game_message_timeout);
-  game_message_timeout = setTimeout(() => msg.style.display = 'none', 2000);
+  game_message_timeout = setTimeout(() => (msg.style.display = 'none'), 2000);
 };
 
 let title_show_message = (msg, sub = '') => {
@@ -46,7 +46,7 @@ let game_run = (time_now) => {
   requestAnimationFrame(game_run);
 
   time_now *= 0.001;
-  game_tick = Math.min((time_now - (game_real_time_last || time_now)), 0.05);
+  game_tick = Math.min(time_now - (game_real_time_last || time_now), 0.05);
   game_real_time_last = time_now;
   game_time += game_tick;
 

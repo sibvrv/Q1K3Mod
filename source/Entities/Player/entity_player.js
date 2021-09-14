@@ -10,7 +10,7 @@ class EntityPlayer extends Entity {
 
     this._check_against = ENTITY_GROUP_ENEMY;
 
-    this._weapons = [new WeaponShotgun];
+    this._weapons = [new WeaponShotgun()];
     this._weapon_index = 0;
 
     // Map 1 needs some rotation of the starting look-at direction
@@ -27,17 +27,7 @@ class EntityPlayer extends Entity {
     this._yaw = (this._yaw + mouse_x * m.value * 0.00015) % (Math.PI * 2);
 
     // Acceleration in movement direction
-    this.a = vec3_mulf(
-      vec3_rotate_y(
-        vec3(
-          keys[key_right] - keys[key_left],
-          0,
-          keys[key_up] - keys[key_down]
-        ),
-        this._yaw
-      ),
-      this._speed * (this._on_ground ? 1 : 0.3)
-    );
+    this.a = vec3_mulf(vec3_rotate_y(vec3(keys[key_right] - keys[key_left], 0, keys[key_up] - keys[key_down]), this._yaw), this._speed * (this._on_ground ? 1 : 0.3));
 
     if (keys[key_jump] && this._on_ground && this._can_jump) {
       this.v.y = 400;
@@ -48,9 +38,7 @@ class EntityPlayer extends Entity {
       this._can_jump = 1;
     }
 
-    this._weapon_index = (
-      this._weapon_index + keys[key_next] + this._weapons.length - keys[key_prev]
-    ) % this._weapons.length;
+    this._weapon_index = (this._weapon_index + keys[key_next] + this._weapons.length - keys[key_prev]) % this._weapons.length;
 
     let shoot_wait = this._can_shoot_at - game_time,
       weapon = this._weapons[this._weapon_index];
@@ -80,25 +68,18 @@ class EntityPlayer extends Entity {
     r_camera_yaw = this._yaw;
     r_camera_pitch = this._pitch;
 
-
     // Draw weapon at camera position at an offset and add the current
     // recoil (calculated from shoot_wait and weapon._reload) accounting
     // for the current view yaw/pitch
 
     r_draw(
-      vec3_add(
-        r_camera,
-        vec3_rotate_yaw_pitch(
-          vec3(
-            0,
-            -10 + Math.sin(this._bob) * 0.3,
-            12 + clamp(scale(shoot_wait, 0, weapon._reload, 5, 0), 0, 5)
-          ),
-          this._yaw, this._pitch
-        )
-      ),
-      this._yaw + Math.PI / 2, this._pitch,
-      weapon._texture, weapon._model.f[0], weapon._model.f[0], 0,
+      vec3_add(r_camera, vec3_rotate_yaw_pitch(vec3(0, -10 + Math.sin(this._bob) * 0.3, 12 + clamp(scale(shoot_wait, 0, weapon._reload, 5, 0), 0, 5)), this._yaw, this._pitch)),
+      this._yaw + Math.PI / 2,
+      this._pitch,
+      weapon._texture,
+      weapon._model.f[0],
+      weapon._model.f[0],
+      0,
       weapon._model.nv
     );
 

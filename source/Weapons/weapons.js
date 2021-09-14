@@ -14,22 +14,10 @@ class Weapon {
   }
 
   _spawn_projectile(pos, yaw, pitch) {
-    let projectile = game_spawn(this._projectile_type, vec3_add(
-      pos,
-      vec3_add(
-        vec3(0, 12, 0),
-        vec3_rotate_yaw_pitch(
-          this._projectile_offset,
-          yaw, pitch
-        )
-      )
-    ));
+    let projectile = game_spawn(this._projectile_type, vec3_add(pos, vec3_add(vec3(0, 12, 0), vec3_rotate_yaw_pitch(this._projectile_offset, yaw, pitch))));
 
     // Set the projectile velocity, yaw and pitch
-    projectile.v = vec3_rotate_yaw_pitch(
-      vec3(0, 0, this._projectile_speed),
-      yaw, pitch
-    );
+    projectile.v = vec3_rotate_yaw_pitch(vec3(0, 0, this._projectile_speed), yaw, pitch);
     projectile._yaw = yaw - Math.PI / 2;
     projectile._pitch = -pitch;
     projectile._check_against = ENTITY_GROUP_ENEMY;
@@ -78,7 +66,7 @@ class WeaponGrenadeLauncher extends Weapon {
     this._model = model_grenadelauncher;
     this._sound = sfx_grenade_shoot;
     this._ammo = 10;
-    this._reload = 0.650;
+    this._reload = 0.65;
     this._projectile_type = EntityProjectileGrenade;
     this._projectile_speed = 900;
   }

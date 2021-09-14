@@ -6,13 +6,9 @@ class EntityLight extends Entity {
       this._flicker = true;
     }
     if (!color) {
-      console.log('no color!')
+      console.log('no color!');
     }
-    this._color = [
-      ((color & 0x7) << 5),
-      ((color & 0x1c) << 3),
-      (color & 0xc0)
-    ];
+    this._color = [(color & 0x7) << 5, (color & 0x1c) << 3, color & 0xc0];
   }
 
   _update() {

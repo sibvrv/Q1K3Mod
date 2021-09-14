@@ -11,10 +11,7 @@ class EntityEnemyGrunt extends EntityEnemy {
     game_spawn(EntityLight, vec3_add(this.p, vec3(0, 30, 0)), 10, 0xff)._die_at = game_time + 0.1;
 
     for (let i = 0; i < 3; i++) {
-      this._spawn_projectile(
-        EntityProjectileShell, 10000,
-        Math.random() * 0.08 - 0.04, Math.random() * 0.08 - 0.04
-      );
+      this._spawn_projectile(EntityProjectileShell, 10000, Math.random() * 0.08 - 0.04, Math.random() * 0.08 - 0.04);
     }
   }
 }

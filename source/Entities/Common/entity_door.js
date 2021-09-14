@@ -7,7 +7,7 @@ class EntityDoor extends Entity {
     this._start_pos = vec3_clone(this.p);
 
     this._reset_state_at = 0;
-    this._yaw = dir * Math.PI / 2;
+    this._yaw = (dir * Math.PI) / 2;
     this._open = 0;
 
     // Map 1 only has one door and it needs a key. Should be a flag
@@ -38,6 +38,5 @@ class EntityDoor extends Entity {
     this.p = vec3_add(this._start_pos, vec3_rotate_y(vec3(96 * this._open, 0, 0), this._yaw));
   }
 
-  _receive_damage() {
-  }
+  _receive_damage() {}
 }

@@ -22,7 +22,7 @@ class EntityEnemyZombie extends EntityEnemy {
   _receive_damage(from, amount) {
     // Ignore damage that's not large enough to gib us
     if (amount > 60) {
-      super._receive_damage(from, amount)
+      super._receive_damage(from, amount);
     }
   }
 

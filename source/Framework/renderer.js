@@ -1,38 +1,29 @@
 let options = {antialias: false};
-let gl = (c.getContext('webgl', options) || c.getContext('experimental-webgl', options));
-let R_MAX_VERTS = 1024 * 64;  // allow 512k verts max
+let gl = c.getContext('webgl', options) || c.getContext('experimental-webgl', options);
+let R_MAX_VERTS = 1024 * 64; // allow 512k verts max
 let R_MAX_LIGHT_V3 = 64;
 
 // Vertex shader source. This translates the model position & rotation and also
 // mixes positions of two buffers for animations.
 let R_SOURCE_VS =
   'precision highp float;' +
-
   // Vertex positions, normals and uv coords for the fragment shader
   'varying vec3 vp,vn;' +
   'varying vec2 vt;' +
-
   // Input vertex positions & normals and blend vertex positions & normals
   'attribute vec3 p,n,p2,n2;' +
-
   // Input UV coords
   'attribute vec2 t;' +
-
   // Camera position (x, y, z) and aspect ratio (w)
   'uniform vec4 c;' +
-
   // Model position (x, y, z)
   'uniform vec3 mp;' +
-
   // Model rotation (yaw, pitch)
   'uniform vec2 mr;' +
-
   // Mouse rotation yaw (x), pitch (y)
   'uniform vec2 m;' +
-
   // Blend factor between the two vertex positions
   'uniform float f;' +
-
   // Generate a rotation Matrix around the x,y,z axis;
   // Used for model rotation and camera yaw
   'mat4 rx(float r){' +
@@ -43,7 +34,6 @@ let R_SOURCE_VS =
   '0,0,0,1' +
   ');' +
   '}' +
-
   'mat4 ry(float r){' +
   'return mat4(' +
   'cos(r),0,-sin(r),0,' +
@@ -52,7 +42,6 @@ let R_SOURCE_VS =
   '0,0,0,1' +
   ');' +
   '}' +
-
   'mat4 rz(float r){' +
   'return mat4(' +
   'cos(r),sin(r),0,0,' +
@@ -61,22 +50,17 @@ let R_SOURCE_VS =
   '0,0,0,1' +
   ');' +
   '}' +
-
   'void main(void){' +
   // Rotation Matrixes for model rotation
   'mat4 ' +
   'mry=ry(mr.x),' +
   'mrz=rz(mr.y);' +
-
   // Mix vertex positions, rotate and add the model position
   'vp=(mry*mrz*vec4(mix(p,p2,f),1.)).xyz+mp;' +
-
   // Mix normals
   'vn=(mry*mrz*vec4(mix(n,n2,f),1.)).xyz;' +
-
   // UV coords are handed over to the fragment shader as is
   'vt=t;' +
-
   // Final vertex position is transformed by the projection matrix,
   // rotated around mouse yaw/pitch and offset by the camera position
   // We use a FOV of 90, so the matrix[0] and [5] are conveniently 1.
@@ -96,25 +80,24 @@ let R_SOURCE_VS =
 // correction and reduces the colors of the final output.
 let R_SOURCE_FS =
   'precision highp float;' +
-
   // Vertex positions, normals and uv coords
   'varying vec3 vp,vn;' +
   'varying vec2 vt;' +
-
   'uniform sampler2D s;' +
-
   // Lights [(x,y,z), [r,g,b], ...]
-  'uniform vec3 l[' + R_MAX_LIGHT_V3 + '];' +
-
+  'uniform vec3 l[' +
+  R_MAX_LIGHT_V3 +
+  '];' +
   'void main(void){' +
   'gl_FragColor=texture2D(s,vt);' +
-
   // Debug: no textures
   // 'gl_FragColor=vec4(1.0,1.0,1.0,1.0);' +
 
   // Calculate all lights
   'vec3 vl;' +
-  'for(int i=0;i<' + R_MAX_LIGHT_V3 + ';i+=2) {' +
+  'for(int i=0;i<' +
+  R_MAX_LIGHT_V3 +
+  ';i+=2) {' +
   'vl+=' +
   // Angle to normal
   'max(' +
@@ -125,7 +108,6 @@ let R_SOURCE_FS =
   '(1./pow(length(l[i]-vp),2.))' + // Inverse distance squared
   '*l[i+1];' + // Light color/intensity
   '}' +
-
   // Debug: full bright lights
   // 'vl = vec3(2,2,2);' +
 
@@ -250,7 +232,6 @@ let r_end_frame = () => {
   let vo = 0,
     last_texture = -1;
   for (let c of r_draw_calls) {
-
     // c = [x, y, z, yaw, pitch, texture, offset1, offset2, mix, length]
 
     // Bind new texture only if it changed from the previous one. The map
@@ -268,8 +249,8 @@ let r_end_frame = () => {
     // drawArrays call to the mix frame.
     // Setting the vertexAttribPointer is quite expensive, so we only
     // do this if we have to; i.e. for animated models.
-    if (vo != (c[7] - c[6])) {
-      vo = (c[7] - c[6]);
+    if (vo != c[7] - c[6]) {
+      vo = c[7] - c[6];
       gl.vertexAttribPointer(r_va_p2, 3, gl.FLOAT, false, 8 * 4, vo * 8 * 4);
       gl.vertexAttribPointer(r_va_n2, 3, gl.FLOAT, false, 8 * 4, (vo * 8 + 5) * 4);
     }
@@ -281,10 +262,7 @@ let r_end_frame = () => {
 };
 
 let r_draw = (pos, yaw, pitch, texture, f1, f2, mix, num_verts) => {
-  r_draw_calls.push([
-    pos.x, pos.y, pos.z, yaw, pitch,
-    texture, f1, f2, mix, num_verts
-  ]);
+  r_draw_calls.push([pos.x, pos.y, pos.z, yaw, pitch, texture, f1, f2, mix, num_verts]);
 };
 
 let r_submit_buffer = () => {
@@ -336,17 +314,10 @@ let r_push_block = (x, y, z, sx, sy, sz, texture) => {
 
 let r_push_light = (pos, intensity, r, g, b) => {
   // Calculate the distance to the light, fade it out between 768--1024
-  let fade = clamp(
-    scale(
-      vec3_dist(pos, r_camera),
-      768, 1024, 1, 0
-    ),
-    0, 1
-  ) * intensity * 10;
+  let fade = clamp(scale(vec3_dist(pos, r_camera), 768, 1024, 1, 0), 0, 1) * intensity * 10;
 
   if (fade && r_num_lights < R_MAX_LIGHT_V3 / 2) {
     r_light_buffer.set([pos.x, pos.y, pos.z, r * fade, g * fade, b * fade], r_num_lights * 6);
     r_num_lights++;
   }
 };
-

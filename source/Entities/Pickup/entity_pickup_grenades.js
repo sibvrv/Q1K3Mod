@@ -7,7 +7,7 @@ class EntityPickupGrenades extends EntityPickup {
 
   _pickup() {
     for (let w of game_entity_player._weapons) {
-      if (w instanceof (WeaponGrenadeLauncher)) {
+      if (w instanceof WeaponGrenadeLauncher) {
         w._ammo += 10;
         audio_play(sfx_pickup);
         this._kill();

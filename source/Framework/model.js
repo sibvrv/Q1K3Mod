@@ -12,35 +12,33 @@ let model_load_container = async (path) => {
           } indices[num_indices];
       } rmf_data;
   */
-  let data = new Uint8Array(await (await fetch(path)).arrayBuffer()),
-    models = [];
+  let data = new Uint8Array(await (await fetch(path)).arrayBuffer());
+  let models = [];
 
-  for (let i = 0; i < data.length;) {
+  for (let i = 0; i < data.length; ) {
     // let model_size = num_frames * num_verts * 3 + num_indices * 3
     let model_size = (data[i++] * data[i++] + data[i++]) * 3;
-    models.push(data.subarray(i - 3, i += model_size));
+    models.push(data.subarray(i - 3, (i += model_size)));
   }
   return models;
 };
 
 let model_init = (data, sx = 1, sy = 1, sz = 1) => {
   // Load header, prepare buffers
-  let j = 0,
-    num_frames = data[j++],
-    num_vertices = data[j++],
-    num_indices = data[j++],
-    vertices = new Float32Array(num_vertices * num_frames * 3),
-    indices = new Uint8Array(num_indices * 3),
-
-    index_increment = 0,
-    offset = 2,
-
-    // Load vertices, center on origin (-15), scale, find the
-    // min/max x and y to compute our UV coords accordingly.
-    min_x = 16,
-    max_x = -16,
-    min_y = 16,
-    max_y = -16;
+  let j = 0;
+  let num_frames = data[j++];
+  let num_vertices = data[j++];
+  let num_indices = data[j++];
+  let vertices = new Float32Array(num_vertices * num_frames * 3);
+  let indices = new Uint8Array(num_indices * 3);
+  let index_increment = 0;
+  let offset = 2;
+  // Load vertices, center on origin (-15), scale, find the
+  // min/max x and y to compute our UV coords accordingly.
+  let min_x = 16;
+  let max_x = -16;
+  let min_y = 16;
+  let max_y = -16;
 
   for (let i = 0; i < num_vertices * num_frames * 3; i += 3) {
     vertices[i] = (data[j++] - 15) * sx;
@@ -65,10 +63,10 @@ let model_init = (data, sx = 1, sy = 1, sz = 1) => {
   }
 
   // UV coords in texture space and width/height as fraction of model size
-  let uf = 1 / (max_x - min_x),
-    u = -min_x * uf,
-    vf = -1 / (max_y - min_y),
-    v = max_y * vf;
+  let uf = 1 / (max_x - min_x);
+  let u = -min_x * uf;
+  let vf = -1 / (max_y - min_y);
+  let v = max_y * vf;
 
   // Compute normals for each frame and face and submit to render buffer.
   // Capture the current vertex offset for the first vertex of each frame.
@@ -79,18 +77,15 @@ let model_init = (data, sx = 1, sy = 1, sz = 1) => {
 
     let vertex_offset = frame_index * num_vertices * 3;
     for (let i = 0; i < num_indices * 3; i += 3) {
+      let mv = [];
+      let uv = [];
 
-      let mv = [], uv = [];
       for (let face_vertex = 0, o = 0; face_vertex < 3; face_vertex++) {
         let idx = indices[i + face_vertex] * 3;
-        mv[face_vertex] = vec3(
-          vertices[vertex_offset + idx + 0],
-          vertices[vertex_offset + idx + 1],
-          vertices[vertex_offset + idx + 2]
-        );
+        mv[face_vertex] = vec3(vertices[vertex_offset + idx + 0], vertices[vertex_offset + idx + 1], vertices[vertex_offset + idx + 2]);
         uv[face_vertex] = {
           u: vertices[idx + 0] * uf + u,
-          v: vertices[idx + 1] * vf + v
+          v: vertices[idx + 1] * vf + v,
         };
       }
 
