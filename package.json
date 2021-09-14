@@ -1,0 +1,24 @@
+{
+  "name": "q1k3mod",
+  "version": "1.0.0",
+  "description": "My entry for the 2021 [js13k](https://js13kgames.com/) competition.",
+  "main": "index.js",
+  "scripts": {
+    "build": "./build.sh",
+    "start": "http-server -o"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sibvrv/Q1K3Mod.git"
+  },
+  "keywords": [],
+  "author": "Dominic Szablewski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sibvrv/Q1K3Mod/issues"
+  },
+  "homepage": "https://github.com/sibvrv/Q1K3Mod#readme",
+  "devDependencies": {
+    "http-server": "^13.0.2"
+  }
+}
