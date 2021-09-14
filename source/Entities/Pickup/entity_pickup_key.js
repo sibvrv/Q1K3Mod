@@ -1,4 +1,4 @@
-class entity_pickup_key_t extends entity_pickup_t {
+class EntityPickupKey extends EntityPickup {
   _init() {
     super._init();
     this._texture = 21;

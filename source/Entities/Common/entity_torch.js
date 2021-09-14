@@ -1,4 +1,4 @@
-class entity_torch_t extends entity_t {
+class EntityTorch extends Entity {
   _init() {
     this._texture = 30;
     this._model = model_torch;

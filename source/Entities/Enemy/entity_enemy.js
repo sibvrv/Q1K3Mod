@@ -1,4 +1,4 @@
-class entity_enemy_t extends entity_t {
+class EntityEnemy extends Entity {
   _init(patrol_dir) {
 
     // Animations
@@ -63,8 +63,8 @@ class entity_enemy_t extends entity_t {
       // Choose a new turning bias for FOLLOW/EVADE when we hit a wall
       this._turn_bias = Math.random() > 0.5 ? 0.5 : -0.5;
 
-      let distance_to_player = vec3_dist(this.p, game_entity_player.p),
-        angle_to_player = vec3_2d_angle(this.p, game_entity_player.p);
+      let distance_to_player = vec3_dist(this.p, game_entity_player.p);
+      let angle_to_player = vec3_2d_angle(this.p, game_entity_player.p);
 
       if (this._state[3]) {
         this._set_state(this._state[3]);

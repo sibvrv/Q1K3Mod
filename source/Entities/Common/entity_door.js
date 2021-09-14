@@ -1,4 +1,4 @@
-class entity_door_t extends entity_t {
+class EntityDoor extends Entity {
   _init(texture, dir) {
     this._model = model_door;
     this._texture = texture;

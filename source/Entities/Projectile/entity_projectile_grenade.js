@@ -1,4 +1,4 @@
-class entity_projectile_grenade_t extends entity_t {
+class EntityProjectileGrenade extends Entity {
   _init() {
     this._texture = 8;
     this._model = model_grenade;
@@ -37,6 +37,6 @@ class entity_projectile_grenade_t extends entity_t {
     super._kill();
     this._play_sound(sfx_grenade_explode);
     this._spawn_particles(20, 800, model_explosion, 8, 1);
-    game_spawn(entity_light_t, vec3_add(this.p, vec3(0, 16, 0)), 250, 0x08f)._die_at = game_time + 0.2;
+    game_spawn(EntityLight, vec3_add(this.p, vec3(0, 16, 0)), 250, 0x08f)._die_at = game_time + 0.2;
   }
 }

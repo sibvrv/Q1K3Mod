@@ -1,4 +1,4 @@
-class entity_pickup_t extends entity_t {
+class EntityPickup extends Entity {
   _init() {
     this._model = model_pickup_box;
     this.s = vec3(12, 12, 12);

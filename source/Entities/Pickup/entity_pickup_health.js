@@ -1,4 +1,4 @@
-class entity_pickup_health_t extends entity_pickup_t {
+class EntityPickupHealth extends EntityPickup {
   _init() {
     super._init();
     this._texture = 23;

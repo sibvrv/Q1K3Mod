@@ -1,4 +1,4 @@
-class weapon_t {
+class Weapon {
   constructor() {
     this._needs_ammo = 1;
     this._projectile_offset = vec3(0, 0, 8);
@@ -39,14 +39,14 @@ class weapon_t {
   }
 }
 
-class weapon_shotgun_t extends weapon_t {
+class WeaponShotgun extends Weapon {
   _init() {
     this._texture = 7;
     this._model = model_shotgun;
     this._sound = sfx_shotgun_shoot;
     this._needs_ammo = 0;
     this._reload = 0.9;
-    this._projectile_type = entity_projectile_shell_t;
+    this._projectile_type = EntityProjectileShell;
     this._projectile_speed = 10000;
   }
 
@@ -59,27 +59,27 @@ class weapon_shotgun_t extends weapon_t {
   }
 }
 
-class weapon_nailgun_t extends weapon_t {
+class WeaponNailgun extends Weapon {
   _init() {
     this._texture = 4;
     this._model = model_nailgun;
     this._sound = sfx_nailgun_shoot;
     this._ammo = 100;
     this._reload = 0.09;
-    this._projectile_type = entity_projectile_nail_t;
+    this._projectile_type = EntityProjectileNail;
     this._projectile_speed = 1300;
     this._projectile_offset = vec3(6, 0, 8);
   }
 }
 
-class weapon_grenadelauncher_t extends weapon_t {
+class WeaponGrenadeLauncher extends Weapon {
   _init() {
     this._texture = 21;
     this._model = model_grenadelauncher;
     this._sound = sfx_grenade_shoot;
     this._ammo = 10;
     this._reload = 0.650;
-    this._projectile_type = entity_projectile_grenade_t;
+    this._projectile_type = EntityProjectileGrenade;
     this._projectile_speed = 900;
   }
 }

@@ -1,4 +1,4 @@
-class entity_enemy_ogre_t extends entity_enemy_t {
+class EntityEnemyOgre extends EntityEnemy {
   _init(patrol_dir) {
     super._init(patrol_dir);
     this._model = model_ogre;
@@ -19,6 +19,6 @@ class entity_enemy_ogre_t extends entity_enemy_t {
 
   _attack() {
     this._play_sound(sfx_grenade_shoot);
-    this._spawn_projectile(entity_projectile_grenade_t, 600, 0, -0.4)._damage = 40;
+    this._spawn_projectile(EntityProjectileGrenade, 600, 0, -0.4)._damage = 40;
   }
 }

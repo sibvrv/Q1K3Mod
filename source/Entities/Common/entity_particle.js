@@ -1,4 +1,4 @@
-class entity_particle_t extends entity_t {
+class EntityParticle extends Entity {
   _init() {
     this._bounciness = 0.5;
     this.f = 0.1;

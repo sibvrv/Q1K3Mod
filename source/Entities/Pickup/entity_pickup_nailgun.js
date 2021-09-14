@@ -1,4 +1,4 @@
-class entity_pickup_nailgun_t extends entity_pickup_t {
+class EntityPickupNailgun extends EntityPickup {
   _init() {
     super._init();
     this._texture = 12;
@@ -12,7 +12,7 @@ class entity_pickup_nailgun_t extends entity_pickup_t {
 
   _pickup() {
     audio_play(sfx_pickup);
-    game_entity_player._weapon_index = game_entity_player._weapons.push(new weapon_nailgun_t) - 1;
+    game_entity_player._weapon_index = game_entity_player._weapons.push(new WeaponNailgun) - 1;
     this._kill();
   }
 }

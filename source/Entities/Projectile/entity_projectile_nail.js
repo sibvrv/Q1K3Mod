@@ -1,4 +1,4 @@
-class entity_projectile_nail_t extends entity_t {
+class EntityProjectileNail extends Entity {
   _init() {
     this._texture = 2;
     this._model = model_nail;
@@ -15,7 +15,7 @@ class entity_projectile_nail_t extends entity_t {
     this._kill();
     this._play_sound(sfx_nailgun_hit);
     this._spawn_particles(2, 80, model_explosion, 8, 0.4);
-    game_spawn(entity_light_t, this.p, 1, 0xff)._die_at = game_time + 0.1;
+    game_spawn(EntityLight, this.p, 1, 0xff)._die_at = game_time + 0.1;
   }
 
   _did_collide_with_entity(other) {

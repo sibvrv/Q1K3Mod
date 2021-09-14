@@ -1,4 +1,4 @@
-class entity_player_t extends entity_t {
+class EntityPlayer extends Entity {
   _init() {
     this.s = vec3(12, 24, 12);
     this.f = 10;
@@ -10,7 +10,7 @@ class entity_player_t extends entity_t {
 
     this._check_against = ENTITY_GROUP_ENEMY;
 
-    this._weapons = [new weapon_shotgun_t];
+    this._weapons = [new WeaponShotgun];
     this._weapon_index = 0;
 
     // Map 1 needs some rotation of the starting look-at direction
@@ -63,7 +63,7 @@ class entity_player_t extends entity_t {
         audio_play(sfx_no_ammo);
       } else {
         weapon._shoot(this.p, this._yaw, this._pitch);
-        game_spawn(entity_light_t, this.p, 10, 0xff)._die_at = game_time + 0.1;
+        game_spawn(EntityLight, this.p, 10, 0xff)._die_at = game_time + 0.1;
       }
     }
 

@@ -1,4 +1,4 @@
-class entity_pickup_grenadelauncher_t extends entity_pickup_t {
+class EntityPickupGrenadelauncher extends EntityPickup {
   _init() {
     super._init();
     this._texture = 21;
@@ -12,7 +12,7 @@ class entity_pickup_grenadelauncher_t extends entity_pickup_t {
 
   _pickup() {
     audio_play(sfx_pickup);
-    game_entity_player._weapon_index = game_entity_player._weapons.push(new weapon_grenadelauncher_t) - 1;
+    game_entity_player._weapon_index = game_entity_player._weapons.push(new WeaponGrenadeLauncher) - 1;
     this._kill();
   }
 }

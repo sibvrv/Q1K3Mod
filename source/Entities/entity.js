@@ -1,8 +1,8 @@
-let ENTITY_GROUP_NONE = 0,
-  ENTITY_GROUP_PLAYER = 1,
-  ENTITY_GROUP_ENEMY = 2;
+let ENTITY_GROUP_NONE = 0;
+let ENTITY_GROUP_PLAYER = 1;
+let ENTITY_GROUP_ENEMY = 2;
 
-class entity_t {
+class Entity {
   constructor(pos, p1, p2) {
     this.a = vec3();
     this.v = vec3();
@@ -66,11 +66,10 @@ class entity_t {
 
     // Divide the physics integration into 16 unit steps; otherwise fast
     // projectiles may just move through walls.
-    let
-      original_step_height = this._step_height,
-      move_dist = vec3_mulf(this.v, game_tick),
-      steps = Math.ceil(vec3_length(move_dist) / 16),
-      move_step = vec3_mulf(move_dist, 1 / steps);
+    let original_step_height = this._step_height;
+    let move_dist = vec3_mulf(this.v, game_tick);
+    let steps = Math.ceil(vec3_length(move_dist) / 16);
+    let move_step = vec3_mulf(move_dist, 1 / steps);
 
     for (let s = 0; s < steps; s++) {
       // Remember last position so we can roll back
@@ -173,10 +172,10 @@ class entity_t {
     this._anim_time += game_tick;
 
     // Calculate which frames to use and how to mix them
-    let f = (this._anim_time / this._anim[0]),
-      mix = f - (f | 0),
-      frame_cur = this._anim[1][(f | 0) % this._anim[1].length],
-      frame_next = this._anim[1][((f + 1) | 0) % this._anim[1].length];
+    let f = (this._anim_time / this._anim[0]);
+    let mix = f - (f | 0);
+    let frame_cur = this._anim[1][(f | 0) % this._anim[1].length];
+    let frame_next = this._anim[1][((f + 1) | 0) % this._anim[1].length];
 
     // Swap frames if we're looping to the first frame again
     if (frame_next < frame_cur) {
@@ -192,7 +191,7 @@ class entity_t {
 
   _spawn_particles(amount, speed = 1, model, texture, lifetime) {
     for (let i = 0; i < amount; i++) {
-      let particle = game_spawn(entity_particle_t, this.p);
+      let particle = game_spawn(EntityParticle, this.p);
       particle._model = model;
       particle._texture = texture;
       particle._die_at = game_time + lifetime + Math.random() * lifetime * 0.2;
@@ -215,8 +214,8 @@ class entity_t {
   }
 
   _play_sound(sound) {
-    let volume = clamp(scale(vec3_dist(this.p, r_camera), 64, 1200, 1, 0), 0, 1),
-      pan = Math.sin(vec3_2d_angle(this.p, r_camera) - r_camera_yaw) * -1;
+    let volume = clamp(scale(vec3_dist(this.p, r_camera), 64, 1200, 1, 0), 0, 1);
+    let pan = Math.sin(vec3_2d_angle(this.p, r_camera) - r_camera_yaw) * -1;
     audio_play(sound, volume, 0, pan);
   }
 

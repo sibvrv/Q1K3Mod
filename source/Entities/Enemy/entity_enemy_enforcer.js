@@ -1,4 +1,4 @@
-class entity_enemy_enforcer_t extends entity_enemy_t {
+class EntityEnemyEnforcer extends EntityEnemy {
   _init(patrol_dir) {
     super._init(patrol_dir);
     this._model = model_enforcer;
@@ -9,6 +9,6 @@ class entity_enemy_enforcer_t extends entity_enemy_t {
 
   _attack() {
     this._play_sound(sfx_plasma_shoot);
-    this._spawn_projectile(entity_projectile_plasma_t, 800, 0, 0);
+    this._spawn_projectile(EntityProjectilePlasma, 800, 0, 0);
   }
 }

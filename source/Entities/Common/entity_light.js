@@ -1,4 +1,4 @@
-class entity_light_t extends entity_t {
+class EntityLight extends Entity {
   _init(light, color) {
     this._light = light;
     this._spawn_time = game_time;

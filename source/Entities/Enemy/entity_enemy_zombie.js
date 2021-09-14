@@ -1,4 +1,4 @@
-class entity_enemy_zombie_t extends entity_enemy_t {
+class EntityEnemyZombie extends EntityEnemy {
   _init(patrol_dir) {
     super._init(patrol_dir);
     this._model = model_zombie;
@@ -28,6 +28,6 @@ class entity_enemy_zombie_t extends entity_enemy_t {
 
   _attack() {
     this._play_sound(sfx_enemy_hit);
-    this._spawn_projectile(entity_projectile_gib_t, 600, 0, -0.5);
+    this._spawn_projectile(EntityProjectileGib, 600, 0, -0.5);
   }
 }

@@ -1,4 +1,4 @@
-class entity_projectile_gib_t extends entity_t {
+class EntityProjectileGib extends Entity {
   _init() {
     this._texture = 18;
     this._bounciness = 0;

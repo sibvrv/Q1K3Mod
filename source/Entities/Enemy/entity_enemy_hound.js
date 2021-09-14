@@ -1,4 +1,4 @@
-class entity_enemy_hound_t extends entity_enemy_t {
+class EntityEnemyHound extends EntityEnemy {
   _init(patrol_dir) {
     super._init(patrol_dir);
     this._model = model_hound;
