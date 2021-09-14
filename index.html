@@ -2,10 +2,33 @@
 <html>
 <head>
 	<title>Q1K3</title>
+  <style>
+    *{font-family:sans-serif;}
+    a,body{color:#fff;background:#111;text-align:center;margin:0;}
+    #c{display:block;width:100%;max-height:100vh;object-fit:contain;}
+    #g{position:relative;margin:0 0 32px 0;font-weight:bold;}
+    #ts{position:absolute;bottom:2em;left:0;right:0;font-size:1.2vw;}
+    #msg{position:absolute;top:8vw;left:0;right:0;font-size:1.2vw;display:none;}
+    #a,#h{position:absolute;bottom:3%;left:20%;right:0;font-size:3.2vw;}
+    #h{left:-20%;}
+    h1{font-size:16vw;margin:0;}
+  </style>
 </head>
 <body>
 	<div id="d"></div>
-	<script type="text/javascript" src="source/document.js"></script>
+
+  <div id="g">
+    <canvas id=c width=1920 height=1080></canvas>
+    <div id="ts"><h1>Q1K3</h1>CLICK TO START</div>
+    <div id="h"></div><div id="a"></div>
+    <div id="msg"></div>
+  </div>
+  <p>MOUSE SPEED: <input id="m" type="range" value=10 min=1 max=50> INVERT: <input type="checkbox" id="mi"></p>
+  <p><input id="f" type="button" value="FULLSCREEN"></p>
+  <p>
+    code: <a href="https://phoboslab.org">phoboslab.org</a> / music: <a href="http://no-fate.net">no-fate.net</a>
+  </p>
+
 	<script type="text/javascript" src="source/ttt.js"></script>
 	<script type="text/javascript" src="source/audio.js"></script>
 
@@ -18,7 +41,7 @@
 	<script type="text/javascript" src="source/weapons.js"></script>
 	<script type="text/javascript" src="source/entity.js"></script>
 	<script type="text/javascript" src="source/entity_player.js"></script>
-	
+
 	<script type="text/javascript" src="source/entity_light.js"></script>
 	<script type="text/javascript" src="source/entity_torch.js"></script>
 	<script type="text/javascript" src="source/entity_door.js"></script>
@@ -30,7 +53,7 @@
 	<script type="text/javascript" src="source/entity_projectile_shell.js"></script>
 	<script type="text/javascript" src="source/entity_projectile_plasma.js"></script>
 	<script type="text/javascript" src="source/entity_projectile_gib.js"></script>
-	
+
 	<script type="text/javascript" src="source/entity_enemy.js"></script>
 	<script type="text/javascript" src="source/entity_enemy_grunt.js"></script>
 	<script type="text/javascript" src="source/entity_enemy_enforcer.js"></script>
@@ -45,9 +68,9 @@
 	<script type="text/javascript" src="source/entity_pickup_health.js"></script>
 	<script type="text/javascript" src="source/entity_pickup_nails.js"></script>
 	<script type="text/javascript" src="source/entity_pickup_grenades.js"></script>
-	
+
 	<script type="text/javascript" src="source/entity_trigger_level.js"></script>
-	
+
 	<script type="text/javascript" src="source/textures.js"></script>
 	<script type="text/javascript" src="source/music.js"></script>
 	<script type="text/javascript" src="source/game.js"></script>
