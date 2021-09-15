@@ -1,0 +1,73 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "es2017",
+    "outDir": "build/main",
+    "rootDir": "source",
+    "outFile": "build/game.js",
+    "moduleResolution": "node",
+    "declaration": false,
+    "allowJs": true,
+    "removeComments": true,
+    "inlineSourceMap": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "types": [],
+    "typeRoots": [
+      "node_modules/@types",
+      "src/types"
+    ]
+  },
+  "include": [
+    "source/Thirdparty/ttt.js",
+    "source/Thirdparty/audio.js",
+    "source/Framework/math_utils.js",
+    "source/Framework/model.js",
+    "source/Framework/map.js",
+    "source/Framework/renderer.js",
+    "source/Framework/input.js",
+    "source/Weapons/weapons.js",
+    "source/Entities/entity.js",
+    "source/Entities/Player/entity_player.js",
+    "source/Entities/Common/entity_light.js",
+    "source/Entities/Common/entity_torch.js",
+    "source/Entities/Common/entity_door.js",
+    "source/Entities/Common/entity_barrel.js",
+    "source/Entities/Common/entity_particle.js",
+    "source/Entities/Common/entity_trigger_level.js",
+    "source/Entities/Projectile/entity_projectile_grenade.js",
+    "source/Entities/Projectile/entity_projectile_nail.js",
+    "source/Entities/Projectile/entity_projectile_shell.js",
+    "source/Entities/Projectile/entity_projectile_plasma.js",
+    "source/Entities/Projectile/entity_projectile_gib.js",
+    "source/Entities/Enemy/entity_enemy.js",
+    "source/Entities/Enemy/entity_enemy_grunt.js",
+    "source/Entities/Enemy/entity_enemy_enforcer.js",
+    "source/Entities/Enemy/entity_enemy_ogre.js",
+    "source/Entities/Enemy/entity_enemy_zombie.js",
+    "source/Entities/Enemy/entity_enemy_hound.js",
+    "source/Entities/Pickup/entity_pickup.js",
+    "source/Entities/Pickup/entity_pickup_key.js",
+    "source/Entities/Pickup/entity_pickup_nailgun.js",
+    "source/Entities/Pickup/entity_pickup_grenadelauncher.js",
+    "source/Entities/Pickup/entity_pickup_health.js",
+    "source/Entities/Pickup/entity_pickup_nails.js",
+    "source/Entities/Pickup/entity_pickup_grenades.js",
+    "source/Assets/textures.js",
+    "source/Assets/music.js",
+    "source/game.js",
+    "source/main.js",
+    "source/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules/**"
+  ],
+  "compileOnSave": false
+}
