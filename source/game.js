@@ -78,7 +78,7 @@ let game_run = (time_now) => {
 
     game_entity_player._dead = 1;
 
-    title_show_message('COMPLETED', 'Time: ' + ~~(game_stats_time / 60) + ':' + ('0' + game_stats_time % 60).slice(-2));
+    title_show_message('COMPLETED', 'Time: ' + ~~(game_stats_time / 60) + ':' + ('0' + (game_stats_time % 60)).slice(-2));
 
     // Set camera position for end screen
     if (game_map_index == 1) {
