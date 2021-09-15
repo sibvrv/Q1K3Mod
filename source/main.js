@@ -117,11 +117,9 @@ let game_load = async () => {
   g.onclick = () => {
     g.onclick = () => c.requestPointerLock();
     g.onclick();
-    // title_show_message('...');
 
     audio_init();
 
-    setTimeout(() => {
       // Generate sounds
       sfx_enemy_hit = audio_create_sound(135, [8, 0, 0, 1, 148, 1, 3, 5, 0, 0, 139, 1, 0, 2653, 0, 2193, 255, 2, 639, 119, 2, 23, 0, 0, 0, 0, 0, 0, 0]);
       sfx_enemy_gib = audio_create_sound(140, [7, 0, 0, 1, 148, 1, 7, 5, 0, 1, 139, 1, 0, 4611, 789, 15986, 195, 2, 849, 119, 3, 60, 0, 0, 0, 1, 10, 176, 1]);
@@ -146,9 +144,6 @@ let game_load = async () => {
       audio_play(audio_create_song(...music_data), 1, 1);
       game_init(0);
       run_frame = game_run;
-    }, 100); // Not sure why such a long delay is needed. Ideally we would
-    // want to use requestAnimationFrame, but the previous DOM
-    // update (...) never makes it to the screen then ;/
   };
 };
 
