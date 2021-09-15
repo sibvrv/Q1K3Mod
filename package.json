@@ -17,7 +17,10 @@
     "test:prettier": "prettier \"source/**/*.js\" --list-different",
     "test:spelling": "cspell \"{README.md,.github/*.md,source/**/*.js}\"",
     "version": "standard-version",
-    "reset-hard": "git clean -dfx && git reset --hard && npm i"
+    "reset-hard": "git clean -dfx && git reset --hard && npm i",
+    "pack": "npm run pack:uglify && npm run pack:roadroller",
+    "pack:uglify": "uglifyjs build/game.js --compress --mangle toplevel --mangle-props regex=/^_/ -o build/game.min.js",
+    "pack:roadroller": "roadroller -Zab14 -Zlr930 -Zmd19 -Zpr14 -S0,1,2,3,7,13,14,19,58,97,305,422 build/game.min.js -o build/game.roadrolled.js"
   },
   "repository": {
     "type": "git",
@@ -41,8 +44,10 @@
     "http-server": "^13.0.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.1",
+    "roadroller": "^2.1.0",
     "standard-version": "^9.3.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "uglify-js": "^3.14.2"
   },
   "prettier": {
     "singleQuote": true,
