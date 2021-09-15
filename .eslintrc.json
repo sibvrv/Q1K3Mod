@@ -1,5 +1,9 @@
 {
   "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "env": {
     "es6": true
   },
@@ -15,7 +19,10 @@
   "extends": [
     "eslint:recommended",
     "plugin:eslint-comments/recommended",
-    "prettier"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "prettier",
+    "prettier/@typescript-eslint"
   ],
   "globals": {
     "BigInt": true,
@@ -23,6 +30,7 @@
     "WebAssembly": true
   },
   "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "eslint-comments/disable-enable-pair": [
       "error",
       {
