@@ -1,6 +1,8 @@
 let map_data;
 let model_data;
 
+let model_q;
+
 // Particles
 let model_explosion;
 let model_blood;
@@ -33,6 +35,7 @@ let model_door;
 
 // Projectiles
 let model_grenade;
+let model_nail;
 let model_plasma; // aka. nail
 
 // Sounds
@@ -41,6 +44,7 @@ let sfx_enemy_gib;
 let sfx_enemy_hound_attack;
 let sfx_no_ammo;
 let sfx_hurt;
+let sfx_pickup;
 let sfx_plasma_shoot;
 let sfx_shotgun_shoot;
 let sfx_shotgun_reload;

@@ -8,8 +8,10 @@ let game_entities_friendly;
 let game_entity_player;
 let game_map_index;
 let game_jump_to_next_level;
+let game_stats_time = 0;
 
 let game_init = (map_index) => {
+  ts.className = 'le';
   ts.style.display = 'none';
 
   game_entities = [];
@@ -20,7 +22,8 @@ let game_init = (map_index) => {
   map_init(map_data[game_map_index]);
 };
 
-let game_next_level = () => {
+let game_next_level = (total_time) => {
+  game_stats_time = ~~total_time;
   game_jump_to_next_level = 1;
 };
 
@@ -72,17 +75,30 @@ let game_run = (time_now) => {
   if (game_jump_to_next_level) {
     game_jump_to_next_level = 0;
     game_map_index++;
-    if (game_map_index == 2) {
-      title_show_message('THE END', 'THANKS FOR PLAYING ❤');
-      h.textContent = a.textContent = '';
-      game_entity_player._dead = 1;
 
-      // Set camera position for end screen
+    game_entity_player._dead = 1;
+
+    title_show_message('COMPLETED', 'Time: ' + ~~(game_stats_time / 60) + ':' + ('0' + game_stats_time % 60).slice(-2));
+
+    // Set camera position for end screen
+    if (game_map_index == 1) {
+      r_camera = vec3(1944, 352, 1539);
+      r_camera_yaw = -3.14;
+      r_camera_pitch = -0.1;
+    } else if (game_map_index == 2) {
       r_camera = vec3(1856, 784, 2272);
       r_camera_yaw = 0;
       r_camera_pitch = 0.5;
-    } else {
-      game_init(game_map_index);
     }
+
+    setTimeout(() => {
+      if (game_map_index == 2) {
+        ts.className = 'lc';
+        title_show_message('THE END', 'THANKS FOR PLAYING ❤');
+        h.textContent = a.textContent = '';
+      } else {
+        game_init(game_map_index);
+      }
+    }, 3000);
   }
 };
