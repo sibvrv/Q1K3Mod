@@ -30,8 +30,8 @@ let map_load_container = async (path) => {
       the texture index to use for the following blocks.
   */
 
-  let data = new Uint8Array(await (await fetch(path)).arrayBuffer()),
-    maps = [];
+  let data = new Uint8Array(await (await fetch(path)).arrayBuffer());
+  let maps = [];
   for (let i = 0; i < data.length; ) {
     let blocks_size = data[i++] | (data[i++] << 8);
     let cm = new Uint8Array((map_size * map_size * map_size) >> 3); // collision map
@@ -44,7 +44,7 @@ let map_load_container = async (path) => {
     for (let j = 0; j < b.length; ) {
       // First value is either the x coordinate or a texture change
       // sentinel value (255) followed by the texture index
-      if (b[j] == 255) {
+      if (b[j] === 255) {
         j++;
         t = b[j++];
       }
@@ -74,8 +74,8 @@ let map_load_container = async (path) => {
 
     // Slice of entity data; we parse it when we actually spawn
     // the entities in map_init()
-    let num_entities = data[i++] | (data[i++] << 8),
-      e = data.subarray(i, (i += num_entities * 6) /*sizeof(entity_t)*/);
+    let num_entities = data[i++] | (data[i++] << 8);
+    let e = data.subarray(i, (i += num_entities * 6) /*sizeof(entity_t)*/);
     maps.push({cm, e, r});
   }
   return maps;
@@ -108,7 +108,7 @@ let map_init = (m) => {
   // Parse entity data and spawn all entities for this map
   for (let i = 0; i < map.e.length; ) {
     let type = spawn_class[m.e[i++]];
-    game_spawn(type, vec3(m.e[i++] * 32, m.e[i++] * 16, m.e[i++] * 32), m.e[i++], m.e[i++]);
+    game_spawn(type, vec3(m.e[i++] << 5, m.e[i++] << 4, m.e[i++] << 5), m.e[i++], m.e[i++]);
   }
 };
 
