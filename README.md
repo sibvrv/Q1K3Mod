@@ -11,7 +11,7 @@ npm run start
 
 ### Demo
 
-Play here: https://phoboslab.org/q1k3/
+Play here: https://sibvrv.github.io/Q1K3Mod/
 
 ### Controls
 - Movement: WASD or Arrow Keys
