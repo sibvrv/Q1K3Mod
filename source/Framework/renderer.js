@@ -2,6 +2,9 @@ let options = {antialias: false};
 let gl = c.getContext('webgl', options) || c.getContext('experimental-webgl', options);
 let R_MAX_VERTS = 1024 * 64; // allow 512k verts max
 let R_MAX_LIGHT_V3 = 64;
+const SCREEN_ASPECT = 16 / 9;
+let r_width;
+let r_height;
 
 // Vertex shader source. This translates the model position & rotation and also
 // mixes positions of two buffers for animations.
@@ -186,7 +189,9 @@ let r_init = () => {
   gl.enable(gl.DEPTH_TEST);
   gl.enable(gl.BLEND);
   gl.enable(gl.CULL_FACE);
-  gl.viewport(0, 0, c.width, c.height);
+
+  window.onresize = r_resize;
+  r_resize();
 };
 
 let r_compile_shader = (shader_type, shader_source) => {
@@ -320,4 +325,12 @@ let r_push_light = (pos, intensity, r, g, b) => {
     r_light_buffer.set([pos.x, pos.y, pos.z, r * fade, g * fade, b * fade], r_num_lights * 6);
     r_num_lights++;
   }
+};
+
+let r_resize = () => {
+  let w = window.innerWidth;
+  let h = window.innerHeight;
+  c.width = r_width = Math.min(w, h * SCREEN_ASPECT);
+  c.height = r_height = r_width / SCREEN_ASPECT;
+  gl.viewport(0, 0, r_width, r_height);
 };
