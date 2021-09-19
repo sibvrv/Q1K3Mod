@@ -102,32 +102,25 @@ const extendMaze = (data: number[], w: number, h: number): number[] => {
   return result;
 };
 
+const
+  rndi = (size: number) => ~~(Math.random() * size),
+  fill = <T>(count: number, value: T): T[] => Array(count).fill(value);
+
+const wall = (segments: number) => fill(segments, [0, 0]).map(() => [rndi(2), 2 + rndi(8)]);
+
 function generateMap() {
   const maze_width = 8;
   const maze_height = 8;
 
   const maze = makeMaze(maze_width, maze_height);
   let maze_data = displayMaze(maze, maze_width, maze_height);
-  for (let i = 2; --i >= 0;) {
+  for (let i = 3; --i >= 0;) {
     maze_data = extendMaze(maze_data.map(it => it === 2 ? 0 : Math.min(1, it)), maze_width * 2 + 1, maze_height * 2 + 1);
   }
 
-  const row = [];
-  for (let y = 0; y < maze_height * 2 + 1; y++) {
-    for (let x = 0; x < maze_width * 2 + 1; x++) {
-      let c: any = maze_data[y * (maze_width * 2 + 1) + x];
-      if (!c) c = ' ';
-      if (c === 2) c = '·';
-      if (c > 0) c = '█';
-      row.push(c);
-    }
-    row.push('\n');
-  }
-  console.log(row.join(''));
-
   let mw = maze_width * 2 + 1;
 
-  const b = [255, 1, 0, 0, 0, 128, 1, 128]
+  const b = [255, 1, 0, 0, 0, 128, 1, 128];
 
   maze_data.forEach((it, index) => {
     const _x = ~~(index / mw);
@@ -138,9 +131,54 @@ function generateMap() {
         b.push(255, 1 + ~~(Math.random() * 8));
       }
 
-      b.push(_x * 4, 1, _y * 4, 4, 8 + ~~(Math.random() * 32), 4);
+      const wl = wall(4);
+
+      let dy = 1;
+      for (let i = wl.length; --i >= 0;) {
+        const it = wl[i];
+        b.push(
+          _x * 6 - it[0],
+          dy,
+          _y * 6 - it[0],
+          6 + it[0] * 2,
+          it[1],//8 + ~~(Math.random() * 32),
+          6 + it[0] * 2,
+        );
+        dy += it[1];
+      }
     }
   });
 
-  return b;
+  let e: number[] = [
+    // Player start
+    0, 1 * 6 + 3, 49 + 1, 1 * 6 + 3, 0, 0,
+    12, maze_width * 12 - 6, 8, maze_height * 12 - 6, 10, 7,
+    13, maze_width * 12 - 6, 2, maze_height * 12 - 6, 10, 7,
+  ];
+
+  for (let dy = maze_height; --dy >= 0;) {
+    for (let dx = maze_width; --dx >= 0;) {
+      if (dx == 0 && dy == 0) {
+        continue;
+      }
+
+      if (dx === maze_width - 1 && dy === maze_height - 1) {
+        continue;
+      }
+
+      e.push(12,
+        6 + dx * 12 + 2,
+        8 + ~~(Math.random() * 5),
+        6 + dy * 12 + 2,
+        10, 246);
+      e.push(8,
+        6 + dx * 12 + 2,
+        8,
+        6 + dy * 12 + 2,
+        0, 0);
+
+    }
+  }
+
+  return {b, e};
 }
