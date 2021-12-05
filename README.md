@@ -1,4 +1,4 @@
-# Q1K3 - A JS13k GAME
+# :godmode: Q1K3 - A JS13k GAME
 
 My entry for the 2021 [js13k](https://js13kgames.com/) competition.
 
