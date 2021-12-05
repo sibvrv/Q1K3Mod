@@ -1,4 +1,4 @@
-# :godmode: Q1K3 - A JS13k GAME
+# Q1K3 - A JS13k GAME
 
 My entry for the 2021 [js13k](https://js13kgames.com/) competition.
 
@@ -11,7 +11,7 @@ npm run start
 
 ### Demo
 
-Play here: https://sibvrv.github.io/Q1K3Mod/
+:godmode: Play here: https://sibvrv.github.io/Q1K3Mod/
 
 ### Controls
 - Movement: WASD or Arrow Keys
