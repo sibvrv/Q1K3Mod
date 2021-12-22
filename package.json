@@ -6,6 +6,7 @@
   "scripts": {
     "build": "run-s build:*",
     "build:game": "tsc",
+    "build:models": "Tools/packModels.js",
     "build:static": "./build.sh",
     "watch": "tsc --watch",
     "start": "http-server -o",
